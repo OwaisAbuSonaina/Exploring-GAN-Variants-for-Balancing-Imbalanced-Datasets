@@ -2,45 +2,45 @@
 
 A comparative study exploring the effectiveness of Generative Adversarial Networks (Vanilla GAN vs. WGAN) in addressing extreme class imbalance for credit card fraud detection.
 
-## Project Overview
+## 📌 Project Overview
 
-The **Credit Card Fraud Detection** dataset is highly imbalanced, where fraudulent transactions represent only **0.17%** of the data. Traditional classifiers (like Random Forest) often biasedly predict "Normal" for everything, achieving high accuracy but missing actual fraud cases.
+The [Credit Card Fraud Detection dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) is highly imbalanced, with fraud accounting for only **0.17%** of transactions. Standard classifiers often fail to detect fraud in such scenarios, favoring the majority class.
 
-This project implements two generative models to synthesize realistic fraud samples and balance the dataset:
+This project implements and compares two generative models to synthesize realistic fraud samples:
 
-1. **Vanilla GAN** (Standard MLP GAN)
+1. **Vanilla GAN** (Standard Multi-Layer Perceptron GAN)
 2. **Wasserstein GAN (WGAN)** (With weight clipping and Wasserstein loss)
 
-## 📊 Dataset & Imbalance Analysis
+The goal is to improve the **Recall** of the classifier (Random Forest) without significantly sacrificing precision.
 
-The dataset contains 284,807 transactions, but only 492 are fraudulent. This extreme imbalance poses a significant challenge for supervised learning.
+## 📊 Visual Analysis
 
-*Figure 1: The extreme class imbalance (0.2% vs 99.8%) visualized.*
+### 1. The Challenge: Extreme Imbalance
 
-## 🛠️ Methodology
+The dataset contains a massive disparity between normal and fraudulent transactions. This imbalance causes standard models to bias heavily toward the "Normal" class.
 
-We designed a 3-stage pipeline:
+*Figure 1: Visual representation of the 99.8% vs 0.2% class distribution.*
 
-1. **Preprocessing:** Robust scaling of 'Time' and 'Amount' features.
-2. **Data Augmentation:** Trained GANs on the minority class to generate synthetic fraud samples.
-3. **Classification:** Trained a Random Forest classifier on three distinct scenarios:
-* **Scenario A:** Original Imbalanced Data (Baseline)
-* **Scenario B:** Augmented with Vanilla GAN Data
-* **Scenario C:** Augmented with WGAN Data
+### 2. The Solution: GAN-based Augmentation
 
+We trained three Random Forest classifiers under different conditions. The Confusion Matrices below reveal how GAN augmentation shifts the model's behavior.
 
+*Figure 2: Comparison of Confusion Matrices. Note the shift in False Positives and True Positives in the WGAN scenario.*
 
-## Results & Analysis
+**Key Observations:**
 
-### 1. Confusion Matrix Comparison
+* **Baseline (Scenario A):** High Precision, but misses 18 fraud cases.
+* **WGAN (Scenario C):** Drastically improved Recall (only 10 missed frauds), but at the cost of higher False Positives.
 
-The WGAN model significantly altered the decision boundary, making the classifier more sensitive to fraud.
+### 3. Performance Trade-off
 
-*Figure 2: Confusion Matrices for Baseline, Vanilla GAN, and WGAN scenarios.*
+The WGAN model successfully forces the classifier to be more aggressive. As shown below, while Precision drops, the WGAN achieves the highest **Recall**, which is often the priority in fraud detection (catching the thief is more important than annoying a customer).
 
-### 2. Performance Metrics
+*Figure 3: Precision vs. Recall trade-off across the three scenarios.*
 
-While the Baseline model achieved the highest Precision, the **WGAN model achieved the highest Recall (88 captured frauds)**, proving it is the most effective at minimizing false negatives (missed fraud).
+*Figure 4: Precision-Recall Curve demonstrating the stability of the models at different thresholds.*
+
+## 📈 Quantitative Results
 
 | Model | Recall (Fraud Caught) | Precision (False Alarms) | F1-Score |
 | --- | --- | --- | --- |
@@ -48,15 +48,13 @@ While the Baseline model achieved the highest Precision, the **WGAN model achiev
 | **Vanilla GAN** | 0.83 | 0.83 | 0.83 |
 | **WGAN** | **0.89** | 0.43 | 0.58 |
 
-*Figure 3: The trade-off between Precision and Recall across the three models.*
+## 🛠️ Key Features
 
-### 3. Precision-Recall Curve
+* **Data Preprocessing:** Robust scaling of Time/Amount features; PCA features left as-is.
+* **GAN Implementation:** Custom PyTorch implementations of Generator, Discriminator (Vanilla), and Critic (WGAN) tailored for tabular data.
+* **Stability Techniques:** Implemented Wasserstein Loss and Weight Clipping to prevent mode collapse.
 
-The curve below demonstrates that the WGAN model is not "worse" but rather "more aggressive." Adjusting the classification threshold could optimize the F1-score.
-
-*Figure 4: Precision-Recall Curves showing model stability.*
-
-## Installation & Usage
+## 🚀 Installation & Usage
 
 1. **Clone the repository**
 ```bash
@@ -73,24 +71,22 @@ pip install -r requirements.txt
 ```
 
 
-3. **Run the Analysis**
-Open `Main.ipynb` in Jupyter Notebook to reproduce the training and evaluation pipeline.
+3. **Run the Notebook**
+Open `Main.ipynb` in Jupyter Notebook or Google Colab to reproduce the training and evaluation pipeline.
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 ├── models/               # Saved PyTorch models (Generator/Critic weights)
-├── images/               # Visualization plots (Confusion Matrix, PR Curve, etc.)
+├── images/               # Project visualizations
+│   ├── class_imbalance.png
+│   ├── confusion_matrices.png
+│   ├── metrics_tradeoff.png
+│   └── pr_curve.png
 ├── Main.ipynb            # Core logic (Preprocessing -> Training -> Evaluation)
 ├── README.md             # Project documentation
 └── requirements.txt      # List of dependencies
 
 ```
-
-## Future Work
-
-* Implement **WGAN-GP** (Gradient Penalty) to improve training stability.
-* Perform hyperparameter tuning on the Random Forest threshold to reduce WGAN False Positives.
-* Deploy the model using **FastAPI** with a dedicated inference endpoint.
 
 ---
