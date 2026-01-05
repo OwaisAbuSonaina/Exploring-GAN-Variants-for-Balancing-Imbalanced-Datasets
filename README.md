@@ -60,7 +60,6 @@ Open `Main.ipynb` in Jupyter Notebook or Google Colab to reproduce the training 
 
 ```
 ├── models/               # Saved PyTorch models (Generator/Critic weights)
-├── images/               # Plots and visualizaions
 ├── Main.ipynb            # Core logic (Preprocessing -> Training -> Evaluation)
 ├── README.md             # Project documentation
 └── requirements.txt      # List of dependencies
