@@ -56,15 +56,6 @@ pip install numpy pandas matplotlib seaborn scikit-learn torch tqdm plotly jobli
 3. **Run the Notebook**
 Open `Main.ipynb` in Jupyter Notebook or Google Colab to reproduce the training and evaluation pipeline.
 
-## Project Structure
-
-```
-├── models/               # Saved PyTorch models (Generator/Critic weights)
-├── Main.ipynb            # Core logic (Preprocessing -> Training -> Evaluation)
-├── README.md             # Project documentation
-└── requirements.txt      # List of dependencies
-
-```
 
 ## Future Work
 
