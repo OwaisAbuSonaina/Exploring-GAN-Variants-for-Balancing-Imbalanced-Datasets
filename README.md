@@ -13,14 +13,14 @@ This project implements and compares two generative models to synthesize realist
 
 The goal is to improve the **Recall** of the classifier (Random Forest) without significantly sacrificing precision.
 
-## 🛠️ Key Features
+## Key Features
 
 * **Data Preprocessing:** Robust scaling of Time/Amount features; PCA features left as-is.
 * **GAN Implementation:** Custom PyTorch implementations of Generator, Discriminator (Vanilla), and Critic (WGAN) tailored for tabular data.
 * **Stability Techniques:** Implemented Wasserstein Loss and Weight Clipping to prevent mode collapse.
 * **Evaluation:** Comprehensive analysis using Precision-Recall Curves, F1-Scores, and Confusion Matrices.
 
-## 📊 Results & Analysis
+## Results & Analysis
 
 We compared three scenarios:
 
