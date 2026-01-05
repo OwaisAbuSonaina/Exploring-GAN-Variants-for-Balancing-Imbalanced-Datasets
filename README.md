@@ -2,7 +2,7 @@
 
 A comparative study exploring the effectiveness of Generative Adversarial Networks (Vanilla GAN vs. WGAN) in addressing extreme class imbalance for credit card fraud detection.
 
-## 📌 Project Overview
+## Project Overview
 
 The [Credit Card Fraud Detection dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) is highly imbalanced, with fraud accounting for only **0.17%** of transactions. Standard classifiers often fail to detect fraud in such scenarios, favoring the majority class.
 
@@ -38,7 +38,7 @@ We compared three scenarios:
 
 *Figure 1: Comparison of Confusion Matrices across all three scenarios.*
 
-## 🚀 Installation & Usage
+## Installation & Usage
 
 1. **Clone the repository**
 ```bash
@@ -58,7 +58,7 @@ pip install numpy pandas matplotlib seaborn scikit-learn torch tqdm
 3. **Run the Notebook**
 Open `Main.ipynb` in Jupyter Notebook or Google Colab to reproduce the training and evaluation pipeline.
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 ├── models/               # Saved PyTorch models (Generator/Critic weights)
@@ -69,7 +69,7 @@ Open `Main.ipynb` in Jupyter Notebook or Google Colab to reproduce the training 
 
 ```
 
-## 🔮 Future Work
+## Future Work
 
 * Implement **WGAN-GP** (Gradient Penalty) to improve stability over simple weight clipping.
 * Experiment with **SMOTE** to compare GAN-based augmentation vs. traditional oversampling.
